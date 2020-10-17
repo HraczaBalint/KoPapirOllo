@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <ImageView
             android:layout_width="100dp"
@@ -40,7 +41,7 @@
             android:layout_marginTop="50sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Eredmény: Ember: 0 Computer: 0"
+            android:text="Ember: 0 | Gép: 0"
             android:textSize="25sp"
             android:id="@+id/eredmeny"/>
 
@@ -80,4 +81,4 @@
 
 
 
-</RelativeLayout>
+</LinearLayout>
