@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,11 +13,11 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView sajatValasztas, gepiValasztas;
-    private TextView eredmenyKijelzo;
+    private ImageView sajatValasztas, gepiValasztas, gepHp1, gepHp2, gepHp3, jatekosHp1, jatekosHp2, jatekosHp3;
+    private TextView dontetlenKijelzo;
     private Button koGomb, papirGomb, olloGomb;
     private  String sajatValasztasVal, gepiValasztasVal;
-    private int jatekosPontszam, gepPontszam;
+    private int jatekosElet, gepElet, dontetlenPontszam;
     private int valasztas;
     private  AlertDialog.Builder builder;
 
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         koGomb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sajatValasztas.setBackgroundResource(R.drawable.rock);
+                sajatValasztas.setImageResource(R.drawable.rock);
                 sajatValasztasVal = "ko";
                 gepValaszt();
                 kiertekeles();
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         papirGomb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sajatValasztas.setBackgroundResource(R.drawable.paper);
+                sajatValasztas.setImageResource(R.drawable.paper);
                 sajatValasztasVal = "papir";
                 gepValaszt();
                 kiertekeles();
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         olloGomb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sajatValasztas.setBackgroundResource(R.drawable.scissors);
+                sajatValasztas.setImageResource(R.drawable.scissors);
                 sajatValasztasVal = "ollo";
                 gepValaszt();
                 kiertekeles();
@@ -67,14 +66,19 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         sajatValasztas = findViewById(R.id.sajat_valasztas);
         gepiValasztas = findViewById(R.id.gepi_valasztas);
-        eredmenyKijelzo = findViewById(R.id.eredmeny);
+        gepHp1 = findViewById(R.id.gep_hp1);
+        gepHp2 = findViewById(R.id.gep_hp2);
+        gepHp3 = findViewById(R.id.gep_hp3);
+        jatekosHp1 = findViewById(R.id.jatekos_hp1);
+        jatekosHp2 = findViewById(R.id.jatekos_hp2);
+        jatekosHp3 = findViewById(R.id.jatekos_hp3);
         koGomb = findViewById(R.id.ko);
         papirGomb = findViewById(R.id.papir);
         olloGomb = findViewById(R.id.ollo);
         sajatValasztasVal = "ko";
         gepiValasztasVal = "ko";
-        jatekosPontszam = 0;
-        gepPontszam = 0;
+        jatekosElet = 3;
+        gepElet = 3;
         builder = new AlertDialog.Builder(MainActivity.this);
         builder.setCancelable(false).setMessage("Szeretnél újat játszani?")
                 .setPositiveButton("Igen", new DialogInterface.OnClickListener() {
@@ -89,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
                         kilépés();
                     }
                 });
-
+        dontetlenKijelzo = findViewById(R.id.dontetlen);
+        dontetlenPontszam = 0;
 
     }
 
@@ -100,66 +105,117 @@ public class MainActivity extends AppCompatActivity {
 
         if (opciok[valasztas] == "ko")
         {
-            gepiValasztas.setBackgroundResource(R.drawable.rock);
+            gepiValasztas.setImageResource(R.drawable.rock);
         }
         else if (opciok[valasztas] == "papir")
         {
-            gepiValasztas.setBackgroundResource(R.drawable.paper);
+            gepiValasztas.setImageResource(R.drawable.paper);
         }
         else if (opciok[valasztas] == "ollo")
         {
-            gepiValasztas.setBackgroundResource(R.drawable.scissors);
+            gepiValasztas.setImageResource(R.drawable.scissors);
         }
     }
 
     private void kiertekeles() {
         if (sajatValasztasVal == "ko" && gepiValasztasVal == "ollo") {
-            jatekosPontszam++;
+            gepEletLevon();
             Toast.makeText(MainActivity.this, "A játékos nyerte a kört!", Toast.LENGTH_SHORT).show();
         }
         else if (sajatValasztasVal == "papir" && gepiValasztasVal == "ko")
         {
-            jatekosPontszam++;
+            gepEletLevon();
             Toast.makeText(MainActivity.this, "A játékos nyerte a kört!", Toast.LENGTH_SHORT).show();
         }
         else if (sajatValasztasVal == "ollo" && gepiValasztasVal == "papir")
         {
-            jatekosPontszam++;
+            gepEletLevon();
             Toast.makeText(MainActivity.this, "A játékos nyerte a kört!", Toast.LENGTH_SHORT).show();
         }
         else if (sajatValasztasVal == "ko" && gepiValasztasVal == "papir")
         {
-            gepPontszam++;
+            jatekosEletLevon();
             Toast.makeText(MainActivity.this, "A gép nyerte a kört!", Toast.LENGTH_SHORT).show();
         }
         else if (sajatValasztasVal == "papir" && gepiValasztasVal == "ollo")
         {
-            gepPontszam++;
+            jatekosEletLevon();
             Toast.makeText(MainActivity.this, "A gép nyerte a kört!", Toast.LENGTH_SHORT).show();
         }
         else if (sajatValasztasVal == "ollo" && gepiValasztasVal == "ko")
         {
-            gepPontszam++;
+            jatekosEletLevon();
             Toast.makeText(MainActivity.this, "A gép nyerte a kört!", Toast.LENGTH_SHORT).show();
         }
-        eredmenyKijelzo.setText(String.valueOf("Ember: " + jatekosPontszam + " | Gép: " + gepPontszam));
+        else
+        {
+            dontetlenPontszam++;
+        }
+        dontetlenKijelzo.setText(String.valueOf("Döntetlen körök száma: " + dontetlenPontszam));
+
+
+    }
+
+    private void jatekosEletLevon() {
+
+        switch (jatekosElet){
+            case 3:
+                jatekosHp1.setImageResource(R.drawable.heart1);
+                break;
+            case 2:
+                jatekosHp2.setImageResource(R.drawable.heart1);
+                break;
+            case 1:
+                jatekosHp3.setImageResource(R.drawable.heart1);
+                break;
+            default:
+                break;
+        }
+        jatekosElet--;
+
+    }
+
+    private void gepEletLevon()
+    {
+        switch (gepElet){
+            case 3:
+                gepHp3.setImageResource(R.drawable.heart1);
+                break;
+            case 2:
+                gepHp2.setImageResource(R.drawable.heart1);
+                break;
+            case 1:
+                gepHp1.setImageResource(R.drawable.heart1);
+                break;
+            default:
+                break;
+        }
+        gepElet--;
     }
 
     private void jatekVege() {
-        if (jatekosPontszam == 3)
+        if (gepElet == 0)
         {
             builder.setTitle("Nyertél!").create().show();
         }
-        if (gepPontszam == 3)
+        if (jatekosElet == 0)
         {
             builder.setTitle("Vesztettél!").create().show();
         }
     }
 
     private void ujJatek() {
-        jatekosPontszam = 0;
-        gepPontszam = 0;
-        eredmenyKijelzo.setText(String.valueOf("Ember: " + jatekosPontszam + " | Gép: " + gepPontszam));
+        jatekosElet = 3;
+        gepElet = 3;
+        dontetlenPontszam = 0;
+        dontetlenKijelzo.setText(String.valueOf("Döntetlen körök száma: " + dontetlenPontszam));
+        jatekosHp1.setImageResource(R.drawable.heart2);
+        jatekosHp2.setImageResource(R.drawable.heart2);
+        jatekosHp3.setImageResource(R.drawable.heart2);
+        gepHp1.setImageResource(R.drawable.heart2);
+        gepHp2.setImageResource(R.drawable.heart2);
+        gepHp3.setImageResource(R.drawable.heart2);
+
     }
 
     private  void kilépés() {

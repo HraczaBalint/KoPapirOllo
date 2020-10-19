@@ -5,13 +5,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         >
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:id="@+id/gep_hp1"
+                android:src="@drawable/heart2"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/gep_hp2"
+                android:src="@drawable/heart2"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/gep_hp3"
+                android:src="@drawable/heart2"/>
+
+            <TextView
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gép"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Játékos"
+                android:textSize="25sp"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/jatekos_hp1"
+                android:src="@drawable/heart2"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/jatekos_hp2"
+                android:src="@drawable/heart2"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/jatekos_hp3"
+                android:src="@drawable/heart2"/>
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Döntetlen körök száma: 0"
+            android:textSize="25sp"
+            android:id="@+id/dontetlen" />
 
         <ImageView
             android:layout_width="100dp"
@@ -37,14 +103,6 @@
             android:text="A gép választása!"
             android:textSize="30sp" />
 
-        <TextView
-            android:layout_marginTop="50sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ember: 0 | Gép: 0"
-            android:textSize="25sp"
-            android:id="@+id/eredmeny"/>
-
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -53,26 +111,24 @@
             <Button
                 android:layout_marginTop="30sp"
                 android:id="@+id/ko"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:text="Kő" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/rock" />
 
             <Button
                 android:layout_marginTop="30sp"
                 android:id="@+id/papir"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Papir"
-                android:orientation="horizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/paper"
                 />
 
             <Button
                 android:layout_marginTop="30sp"
                 android:id="@+id/ollo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Olló" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/scissors" />
 
         </LinearLayout>
 
